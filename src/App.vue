@@ -3,19 +3,19 @@
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import CharattersList from './components/CharattersList.vue';
-
+import { store } from './store.js';
 
 export default{
   data(){
     return{
-      characters: [],
+      store : store,
     };
   },
   created(){
     //chiamata api delle cards
     axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0").then((resp) => {
    console.log(resp);
-   this.characters = resp.data.data;
+   this.store.characters = resp.data.data;
     });
 
   },
