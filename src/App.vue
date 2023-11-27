@@ -31,6 +31,8 @@ export default{
 
 <AppHeader />
 
+<CharattersList />
+
 </template>
 
 <style lang="scss">
