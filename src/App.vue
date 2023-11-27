@@ -1,6 +1,9 @@
 <script>
 
 import axios from 'axios';
+import AppHeader from './components/AppHeader.vue';
+import CharattersList from './components/CharattersList.vue';
+
 
 export default{
   data(){
@@ -14,15 +17,20 @@ export default{
    console.log(resp);
    this.characters = resp.data.data;
     });
+
   },
+  components:{
+    AppHeader,
+    CharattersList,
+},
 };
+
 </script>
 
 <template>
- <h1>HELLO</h1>
- <ul>
-  <li v-for="character in characters">{{  character.name }}</li>
- </ul>
+
+<AppHeader />
+
 </template>
 
 <style lang="scss">
