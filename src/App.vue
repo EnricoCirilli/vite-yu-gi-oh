@@ -1,52 +1,64 @@
 <script>
-
-import axios from 'axios';
+//importare componenti
+import axios from "axios";
 import AppHeader from './components/AppHeader.vue';
-import CharattersList from './components/CharattersList.vue';
-import { store } from './store.js';
+import { store } from "./store.js";
+import CharattersList from "./components/CharattersList.vue";
+import AppSelect from "./components/AppSelect.vue";
 
-export default{
-  data(){
-    return{
-      store : store,
+
+
+//dichiarare componenti
+export default {
+  data() {
+    return {
+      store: store
     };
   },
-  created(){
-    //chiamata api delle cards
-    axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0").then((resp) => {
-   console.log(resp);
-   this.store.characters = resp.data.data;
+  created() {
    
-    });
-
+    axios
+      .get(this.store.apiUrl, {
+        params: {
+          num: 20,
+          offset: 0
+        },
+      })
+      .then((resp) => {
+        //console.log(resp);
+        this.store.cardsList = resp.data.data;
+        console.log(this.store.cardsList);
+      })
   },
-  components:{
+  components: {
     AppHeader,
+    AppSelect,
     CharattersList,
+  
 },
+  methods: {
+    handleSelect() {
+      axios.get(this.store.apiUrl, {
+        params: {
+          archetype: this.store.selectedOption,
+          num: 20,
+          offset: 0
+        }
+      }).then((resp) => {
+        this.store.cardsList = resp.data;
+      })
+    }
+  },
 };
-
 </script>
 
 <template>
-
-<AppHeader />
-<section>
-
- <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-  <option selected>Archetype</option>
-  <option value="1">Alien</option>
-  <option value="2">Ally</option>
-  <option value="3">Ancient Gear</option>
-</select>
-
-</section>
-
-<CharattersList />
-
+  <!-- utilizzare componenti-->
+  <AppHeader />
+  <AppSelect @showCards="handleSelect" />
+  <CharattersList />
 </template>
 
 <style lang="scss">
- @use "./style/general.scss";
-
+@use "./style/general.scss";
 </style>
