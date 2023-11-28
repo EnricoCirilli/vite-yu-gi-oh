@@ -15,7 +15,7 @@ export default{
 
     <div>
         <div class="container">
-            <div class="row">
+            <div class="row" row-cols-5 g-4>
                 <div class="col-3" v-for="character in store.characters">
                    <AppCard :character="character" :key="character"/>
                 </div>
