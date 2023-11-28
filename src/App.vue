@@ -16,6 +16,7 @@ export default{
     axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0").then((resp) => {
    console.log(resp);
    this.store.characters = resp.data.data;
+   
     });
 
   },
@@ -30,6 +31,16 @@ export default{
 <template>
 
 <AppHeader />
+<section>
+
+ <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+  <option selected>Archetype</option>
+  <option value="1">Alien</option>
+  <option value="2">Ally</option>
+  <option value="3">Ancient Gear</option>
+</select>
+
+</section>
 
 <CharattersList />
 
